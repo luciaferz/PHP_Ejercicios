@@ -1,11 +1,4 @@
-/*2.-  Obtener un número al azar entre 1 y 9 y generar una la escalera numérica del tamaño indicado alternando colores entre rojo y azul.
-
-Número generado 5
-1
-22
-333
-4444
-55555 */
+//2.-  Obtener un número al azar entre 1 y 9 y generar una la escalera numérica del tamaño indicado alternando colores entre rojo y azul.
 
 <!DOCTYPE html>
 <html lang="en">
