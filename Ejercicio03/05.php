@@ -1,0 +1,3 @@
+<?php
+//Usar array rand
+?>
