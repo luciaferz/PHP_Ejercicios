@@ -30,11 +30,13 @@ $urlAleatorio = $medios[$aleatorio];//Obtiene el valor del enlace aleatorio
 
 <body>
     
-    <h1>Medio Aleatorio</h1>
-    <p><?php foreach ($recomendado as $nombre => $url);?></p>
-    <p><a href="<?php echo $url; ?>" <?php echo $nombre; ?></a></p>
-
     <h1>Medio Recomendado</h1>
+    <p><?php foreach ($recomendado as $nombre => $url);?></p>
+    <p><a href="<?php echo $url; ?>"><?php echo $nombre; ?></a></p>
+
+    <h1>Medio Aleatorio</h1>
+    <p><?php foreach ($medios as $nombre => $url);?></p>
+    <p><a href="<?php echo $urlAleatorio; ?>"><?php echo $aleatorio; ?></a></p>
     <p></p>
 
     
