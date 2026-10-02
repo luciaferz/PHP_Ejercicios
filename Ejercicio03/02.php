@@ -10,6 +10,7 @@ El array será asociativo con el nombre del periódico como clave y su URL como 
             "ABC" => "https://www.abc.es", 
             "La Vanguardia" => "https://www.lavanguardia.com", 
             "El Confidencial" => "https://www.elconfidencial.com"]; 
+
 ?>
 
 <!DOCTYPE html>
