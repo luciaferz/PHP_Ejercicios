@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Jugador</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            width: 500px;
+        }
+        .form-container h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .form-container input[type="text"],
+        .form-container input[type="number"],
+        .form-container select,
+        .form-container input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+        .form-container input[type="number"]::-webkit-inner-spin-button,
+        .form-container input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .form-container .radio-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .form-container .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .form-container button {
+            width: 48%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .form-container .btn-submit {
+            background-color: #007BFF;
+        }
+        .form-container .btn-reset {
+            background-color: #6c757d;
+        }
+        .form-container button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Jugador</h1>
+        <form action="index.php" method="POST" enctype="multipart/form-data">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="alias">Alias:</label>
+            <input type="text" id="alias" name="alias" required>
+
+            <label for="edad">Edad:</label>
+            <input type="number" id="edad" name="edad" min="1" max="120" required>
+
+            <label for="arma">Armas a elegir:</label>
+            <select id="arma" name="arma" required>
+                <option value="espada">Espada</option>
+                <option value="arco">Arco</option>
+                <option value="hacha">Hacha</option>
+                <option value="lanza">Lanza</option>
+            </select>
+
+            <label>¿Practicas artes mágicas?</label>
+            <div class="radio-group">
+                <label><input type="radio" name="magia" value="si" required> Sí</label>
+                <label><input type="radio" name="magia" value="no" required> No</label>
+            </div>
+
+            <label for="imagen">Subir imagen (opcional, solo PNG, máx. 10 KB):</label>
+            <input type="file" id="imagen" name="imagen" accept="image/png">
+
+            <div style="display: flex; justify-content: space-between;">
+                <button type="submit" class="btn-submit">Enviar</button>
+                <button type="reset" class="btn-reset">Borrar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
