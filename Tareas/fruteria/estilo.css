@@ -92,3 +92,18 @@ input[name="accion"][value=" Terminar "]:hover, input[name="accion"][value=" Anu
     border-radius: 5px;
     text-align: left;
 }
+
+.lista-precios {
+    margin: 20px 0;
+}
+
+.lista-precios table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.lista-precios th, .lista-precios td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}

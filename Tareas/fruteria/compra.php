@@ -1,3 +1,9 @@
+<?php
+if (!isset($compraRealizada, $precios, $_SESSION['cliente'])) {
+    header('Location: index.php');
+    exit;
+}
+?>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -11,17 +17,31 @@
         <?= $compraRealizada ?>
     </div>
     <div class="mensaje-principal">REALICE SU COMPRA, <?= htmlspecialchars($_SESSION['cliente']) ?></div>
+
+    <div class="lista-precios">
+        <h2>Lista de precios orientativos (€/kg)</h2>
+        <table>
+            <thead>
+                <tr><th>Fruta</th><th>Precio</th></tr>
+            </thead>
+            <tbody>
+                <?php foreach ($precios as $fruta): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($fruta['nombre']) ?></td>
+                        <td><?= number_format($fruta['precio'], 2, ',', '.') ?> €</td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
     
     <form action="<?=$_SERVER['PHP_SELF'];?>" method="post">
         <label for="fruta">Selecciona la fruta:</label>
         <select name="fruta" id="fruta">
-			<option value="Platanos">Plátanos 🍌</option>
-			<option value="Naranjas">Naranjas 🍊</option>
-			<option value="Limones">Limones 🍋</option>
-			<option value="Manzanas">Manzanas 🍎</option>
+            <?= generarOpciones() ?>
         </select>
         
-        <label for="cantidad">Cantidad (unidades/kg):</label>
+        <label for="cantidad">Cantidad (kg):</label>
         <input name="cantidad" id="cantidad" type="number" value="1" min="1" max="10" size="4">
         
         <div style="display: flex; justify-content: space-around; width: 100%;">

@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/precios.php';
 
 // Manejo de la sesión con dos valores
 // 'cliente' => nombre del cliente
@@ -14,7 +15,7 @@ if (isset($_GET['cliente'])) {
 
 // No hay definido un cliente todavía en la session 
 if (!isset($_SESSION['cliente'])) {
-    include "bienvenida.php";
+    include __DIR__ . '/bienvenida.php';
     die();
 }
 
@@ -36,9 +37,9 @@ switch ($_POST["accion"]) {
 
         break;
     case " Terminar ": 
-        $compraRealizada = htmlTablaPedidos();
+        $compraRealizada = htmlTablaPedidos($precios);
         // Destruyo la sesión y vuelvo a la página de bienvenida
-            include_once "despedida.php";
+            include_once __DIR__ . '/despedida.php';
             session_destroy(); //borra datos de sesion pero no cierra la sesion
             exit(); //cierra la sesion
         break;
@@ -46,22 +47,24 @@ switch ($_POST["accion"]) {
 
 }
 
-$compraRealizada = htmlTablaPedidos();
-require_once 'compra.php';
+$compraRealizada = htmlTablaPedidos($precios);
+require_once __DIR__ . '/compra.php';
 
 
 // Función axiliar que genera una tabla HTML a partir  la tabla de pedidos
 // Almacenada en la sesión
-function htmlTablaPedidos(): string
+function htmlTablaPedidos(array $precios): string
 {
-    $msg = "";
-    //crear una tabla
-    $msg .= "<table>";//convertir la info del php en una tabla html para que aparezaca en la web
-    foreach($_SESSION['pedidos'] as $fruta=> $cantidad){
-        $msg .= "<tr><td>" .$fruta .":" ."</td><td>" .$cantidad ."</td></tr>";
+    $msg = "<table><thead><tr><th>Fruta</th><th>Cantidad (kg)</th><th>Precio por kg</th><th>Subtotal</th></tr></thead><tbody>";
+    $total = 0;
+
+    foreach ($_SESSION['pedidos'] as $fruta => $cantidad) {
+        $precio = $precios[$fruta]['precio'];
+        $subtotal = $cantidad * $precio;
+        $total += $subtotal;
+        $msg .= "<tr><td>" . htmlspecialchars($precios[$fruta]['nombre']) . "</td><td>" . $cantidad . "</td><td>" . number_format($precio, 2, ',', '.') . " €</td><td>" . number_format($subtotal, 2, ',', '.') . " €</td></tr>";
     }
-    $total = array_sum($_SESSION['pedidos']);
-    $msg .= "<tr><th>Total de unidades:</th><td>$total</td></tr></table>";
+    $msg .= "<tr><th colspan=\"3\">Total</th><td>" . number_format($total, 2, ',', '.') . " €</td></tr></tbody></table>";
 
     return $msg;
 }
