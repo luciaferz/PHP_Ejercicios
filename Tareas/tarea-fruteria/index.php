@@ -27,7 +27,7 @@ switch ($_POST["accion"]) {
         $fruta = $_POST['fruta'];
         $cantidad = $_POST['cantidad'];
         // Actualizo la tabla de pedidos en la sesión
-        $_SESSION['pedidos'] [$fruta] = $cantidad;
+        $_SESSION['pedidos'][$fruta] = ($_SESSION['pedidos'][$fruta] ?? 0) + $cantidad;
         break;
     case " Anular ":
         $fruta = $_POST['fruta'];
@@ -58,13 +58,10 @@ function htmlTablaPedidos(): string
     //crear una tabla
     $msg .= "<table>";//convertir la info del php en una tabla html para que aparezaca en la web
     foreach($_SESSION['pedidos'] as $fruta=> $cantidad){
-        $msg .= "<tr><td>" .$fruta .":" ."</td><td>" .$cantidad ."</tr>";
+        $msg .= "<tr><td>" .$fruta .":" ."</td><td>" .$cantidad ."</td></tr>";
     }
     $total = array_sum($_SESSION['pedidos']);
-    $msg .= "<tr><th>Total de unidades:</th><td>$total</td></tr>";
+    $msg .= "<tr><th>Total de unidades:</th><td>$total</td></tr></table>";
 
-    /*ob_start();//desactivar el buffer
-    print_r($_SESSION['pedido']); //activar el buffer y que aparezcan los pedido
-    $msg = ob_get_clean();*/
     return $msg;
 }
