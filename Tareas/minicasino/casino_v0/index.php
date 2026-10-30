@@ -6,7 +6,9 @@ session_start();
 $_SESSION['disponible'] = 1000;
 $visitas = 1;  
 $disponible = $_SESSION['disponible'];
+
 // Actualizo el cookie de visitas
+session_start();
 
  // Un mes  
 

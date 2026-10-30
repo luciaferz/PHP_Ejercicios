@@ -11,6 +11,7 @@ require_once ('dat/datos.php');
 //no mejor solucion hay un metodo que se llama arrays_keys que dice si la clave existe en un array 
 function userOk($login,$clave):bool {
     global $usuarios;
+    $clave = array_keys($usuarios, 6);
 
     foreach($usuarios as $loginuser => $datosuser){
         if($login == $loginuser && $clave == $datosuser(1)){
