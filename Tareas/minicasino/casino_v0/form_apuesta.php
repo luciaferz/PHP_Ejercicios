@@ -16,5 +16,3 @@ Tipo de apuesta :
 </form>
 </body>
 </html>
-
-
