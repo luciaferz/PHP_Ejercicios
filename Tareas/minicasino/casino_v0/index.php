@@ -48,7 +48,7 @@ if (isset($_POST["apostar"])) {
   if ($cantidadApuesta === false || $cantidadApuesta <= 0) {
     $msg = "Introduce una cantidad entera mayor que cero.";
   } elseif ($cantidadApuesta >= $disponible) {
-    $msg = "La apuesta debe ser inferior al saldo disponible.";
+    $msg = "Error: no dispone de " . $cantidadApuesta . " euros disponibles.";
   } elseif ($tipoApuesta != "PAR" && $tipoApuesta != "IMPAR") {
     $msg = "Selecciona PAR o IMPAR.";
   } else {
