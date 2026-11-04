@@ -4,8 +4,10 @@ class Persona {
     private int $edad;//= 20;
     private string $nombre;
 
+    static int $numPersonas = 0; //Variable estatica que pertenece a la clase y no al objeto
+
     //Metodo que no tieine que ver con los objeto -> static (estaticos)
-    function mensajeEdad(int $años) : string { //Devuelve un string
+    static function mensajeEdad(int $años) : string { //Devuelve un string
         if($años < 18){
             return "Precio infantil";
         }else if($años < 30){
@@ -25,6 +27,7 @@ class Persona {
     function __construct(string $nombre, int $edad) {
         $this->nombre = $nombre;
         $this->edad = $edad;
+        Persona::$numPersonas++; //Aumenta el numero de personas cada vez que se crea un objeto
     }
 
     //Metodos que todo objeto tiene (metodos magicos)
@@ -32,6 +35,7 @@ class Persona {
         return $this->nombre."(".$this->edad.")";
     }
 
+    
     function __get(string $atributo){
         if($atributo == "nombre"){
             return $this->nombre;
@@ -43,12 +47,18 @@ class Persona {
         }
     }
 
+    //Cambiar el valor de un atributo __set
     function __set(string $name, mixed $value){ //mixed puede ser cualquiero cosa (no hace falta ponerlo)
         if($name == "edad" && $value < 100){
             $this->edad = $value;
         }
     }
 
+    //Destructor
+    function __destruct(){
+        echo "Palmo" . $this->nombre;
+        self::$numPersonas--; //Disminuye el numero de personas cada vez que se destruye un objeto
+    }
 }
 
 $pepe = new Persona(25, "Pepe Luiis"); //Cosntructor 
@@ -72,4 +82,9 @@ $this->nombre = "Manuel";
 $this->edad = 320;
 
 $this->edad = 56; //Se puede cambiar porque es menor a 100
+
+
+unset($pepe);//forzar eliminaicon de objeto
+echo Persona::mensajeEdad(8) . "\n"; //Llamada al metodo estatico mensajeEdad
+echo Persona::$numPersonas . "\n"; //Muestra el numero de personas
 ?>
