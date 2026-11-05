@@ -23,7 +23,11 @@ function mostrartablabicis($tabla): string
 {    
     //Es una tabla de objetos - acceder mediante set y get
     $cadena = "<table><tr><th>Id</th><th>Coord X</th><th>Cood Y</th><th>Bateria</th></tr>";
-       foreach($tabla as $bici){        
+       foreach($tabla as $bici){
+        if (!$bici->operativa) {//La tabla no muestre bicis no disponibles
+            continue;
+        }
+
         $cadena .= "<tr>";
         $cadena .= "<td>" . $bici->id . "</td>";
         $cadena .= "<td>" . $bici->coordx . "</td>";
