@@ -3,7 +3,7 @@ require_once("funciones.php");
 $tabla = cargarbicis();
 // COMPLETAE
 if (!empty($_GET['coordx']) && !empty($_GET['coordy'])) {
-    $biciRecomendada = bicimascercana($_GET['coordx'], $_GET['coordy'], $tabla);
+$biciRecomendada = bicimascercana($_GET['coordx'], $_GET['coordy'], $tabla);
 }
 
 ?>
