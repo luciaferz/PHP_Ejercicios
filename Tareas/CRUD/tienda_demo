@@ -1,0 +1,10 @@
+1.usuario y contrasea de http://localhost/phpmysqladmin/: root y root
+2.Crear base de datos: Estructura -> crear tabla: tienda_demo
+3.Pinchar en SQL: y poner la base de datos(SQL)
+SQL
+CREATE TABLE productos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    precio DECIMAL(10, 2) NOT NULL,
+    stock INT NOT NULL
+);
