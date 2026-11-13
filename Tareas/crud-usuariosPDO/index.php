@@ -5,6 +5,7 @@ include_once 'app/dat/AccesoDatos.php';
 include_once 'app/funciones.php';
 include_once 'app/acciones.php';
 
+/* 
 
 // Div con contenido
 $contenido="";
@@ -31,7 +32,9 @@ else {
          }
     }
 }
-$contenido .= mostrarDatos();
+    */
+
+$contenido .= mostrarDatos(); //Cambiar funcion mostrar datos
 // Muestro la página principal
 include_once "app/layout/principal.php";
 

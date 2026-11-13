@@ -2,6 +2,12 @@
 include_once "app/dat/Usuario.php";
 include_once "app/config.php";
 
+
+/* En config.php, apuntar a la base de datos ProductosDB.
+En AccesoDatos.php, consultar la tabla Productos y obtener productos, en lugar de usuarios.
+En funciones.php, hacer que mostrarDatos() muestre las columnas de productos: Código, Nombre, Stock, Stock mínimo y Precio.
+*/
+
 /*
  * Acceso a datos con BD Usuarios y Patrón Singleton 
  * Un único objeto para la clase
@@ -123,5 +129,15 @@ class AccesoDatos {
     { 
         trigger_error('La clonación no permitida', E_USER_ERROR); 
     }
+
+    //Para mostrar luego los prodcutos
+   
+    public function getProductos(): array {
+        $stmt = $this->dbh->prepare("SELECT codigo, nombre, stock, stock_min, precio FROM Productos");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+    
+
 }
 
