@@ -1,22 +1,10 @@
+<!--
+    Vista principal adaptada del CRUD original de Usuarios.
+    En esta práctica muestra únicamente las acciones de Productos.
+-->
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>CRUD DE USUARIOS</title>
-<link href="web/default.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="web/js/funciones.js"></script>
-</head>
-<body>
-<div id="container" >
-<div id="header">
-<h1>GESTIÓN DE USUARIOS versión 1.1 + BD (PDO)</h1>
-</div>
-<div id="content">
+<html lang="es"><head><meta charset="UTF-8"><title>CRUD DE PRODUCTOS</title><link href="web/default.css" rel="stylesheet"></head>
+<body><div id="container"><div id="header"><h1>GESTIÓN DE PRODUCTOS</h1></div><div id="content">
 <?= $contenido ?>
-<form>
-<button name="orden" value="Nuevo"> ➕ Nuevo Usuario </button>
-<button name="orden" value="Terminar"> 🚪 Salir </button>
-</form>
-</div>
-</div>
-</body>
+<form><button name="orden" value="Nuevo">Nuevo producto</button> <button name="orden" value="Terminar">Salir</button></form>
+</div></div></body></html>

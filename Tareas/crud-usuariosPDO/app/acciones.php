@@ -1,63 +1,95 @@
 <?php
-require_once "app/dat/Usuario.php";
-require_once 'app/dat/AccesoDatos.php';
-
-function accionBorrar ($login){    
+/*
+// ---------------- ACCIONES DE USUARIOS ----------------
+function accionBorrarUsuario($login){
     $db = AccesoDatos::getModelo();
-    $tuser = $db->borrarUsuario($login);
+    $db->borrarUsuario($login);
 }
 
-function accionTerminar(){
+function accionAltaUsuario(){
+    $user = new Usuario();
+    $user->nombre = '';
+    $user->login = '';
+    $user->password = '';
+    $user->comentario = '';
+    $orden = 'Nuevo';
+    include 'layout/formulario.php';
+}
+
+function accionDetallesUsuario($login){
+    $user = AccesoDatos::getModelo()->getUsuario($login);
+    $orden = 'Detalles';
+    include 'layout/formulario.php';
+}
+
+function accionModificarUsuario($login){
+    $user = AccesoDatos::getModelo()->getUsuario($login);
+    $orden = 'Modificar';
+    include 'layout/formulario.php';
+}
+*/
+
+/* ================================================================
+   ACCIONES  DEL CRUD DE PRODUCTOS
+   ================================================================ */
+
+// Recoge y convierte los datos enviados desde el formulario.
+function productoPost(): array
+{
+    return ['codigo' => (int)$_POST['codigo'], 
+        'nombre' => $_POST['nombre'], 
+        'stock' => (int)$_POST['stock'], 
+        'stock_min' => (int)$_POST['stock_min'], 
+        'precio' => (float)$_POST['precio']];
+}
+
+// Muestra el formulario en modo alta, detalle o modificación.
+function formularioProducto(array $producto, string $orden)
+{
+    include 'app/layout/formulario.php';
+}
+
+function accionAlta()
+{
+    formularioProducto(['codigo' => '', 'nombre' => '', 'stock' => '', 'stock_min' => '', 'precio' => ''], 'Nuevo');
+}
+
+function accionDetalles(int $id)
+{
+    formularioProducto(AccesoDatos::getModelo()->getProducto($id), 'Detalles');
+}
+
+function accionModificar(int $id)
+{
+    formularioProducto(AccesoDatos::getModelo()->getProducto($id), 'Modificar');
+}
+
+// Acciones GET de detalle, modificación y borrado.
+function accionBorrar(int $id)
+{
+    AccesoDatos::getModelo()->borrarProducto($id);
+    header('Location: index.php');
+    exit;
+}
+
+// Acciones POST de alta y modificación.
+function accionPostAlta()
+{
+    AccesoDatos::getModelo()->addProducto(productoPost());
+    header('Location: index.php');
+    exit;
+}
+
+function accionPostModificar()
+{
+    AccesoDatos::getModelo()->modProducto(productoPost(), (int)$_POST['codigoOriginal']);
+    header('Location: index.php');
+    exit;
+}
+
+function accionTerminar()
+{
     AccesoDatos::closeModelo();
-    session_destroy();
-    header("Refresh:0 url='./index.php'");
+    header('Location: index.php');
+    exit;
 }
- 
-function accionAlta(){
-    $user = new Usuario();
-    $user->nombre  = "";
-    $user->login   = "";
-    $user->password   = "";
-    $user->comentario = "";
-    $orden= "Nuevo";
-    include_once "layout/formulario.php";
-}
-
-function accionDetalles($login){
-    $db = AccesoDatos::getModelo();
-    $user = $db->getUsuario($login);
-    $orden = "Detalles";
-    include_once "layout/formulario.php";
-}
-
-
-function accionModificar($login){
-    $db = AccesoDatos::getModelo();
-    $user = $db->getUsuario($login);
-    $orden="Modificar";
-    include_once "layout/formulario.php";
-}
-
-function accionPostAlta(){
-    $user = new Usuario();
-    $user->nombre  = $_POST['nombre'];
-    $user->login   = $_POST['login'];
-    $user->password   = $_POST['clave'];
-    $user->comentario = $_POST['comentario'];
-    $db = AccesoDatos::getModelo();
-    $db->addUsuario($user);
-    
-}
-
-function accionPostModificar(){
-    
-    $user = new Usuario();
-    $user->nombre  = $_POST['nombre'];
-    $user->login   = $_POST['login'];
-    $user->password  = $_POST['clave'];
-    $user->comentario = $_POST['comentario'];
-    $db = AccesoDatos::getModelo();
-    $db->modUsuario($user);
-    
-}
-
