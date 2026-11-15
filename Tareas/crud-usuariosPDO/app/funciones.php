@@ -18,7 +18,7 @@ function mostrarDatos(): string {
     foreach (AccesoDatos::getModelo()->getProductos() as $p) {
         $id = (int)$p['codigo'];
         $msg .= "<tr><td>".e($p['codigo'])."</td><td>".e($p['nombre'])."</td><td>".e($p['stock'])."</td><td>".e($p['stock_min'])."</td><td>".e($p['precio'])."</td>";
-        $msg .= '<td><a href="?orden=Detalles&id='.$id.'">Ver</a> <a href="?orden=Modificar&id='.$id.'">Modificar</a> <a href="?orden=Borrar&id='.$id.'" onclick="return confirm(\'Borrar producto?\')">Borrar</a></td></tr>';
+        $msg .= '<td><a href="?orden=Detalles&id='.$id.'" title="Ver detalles">👁️</a> <a href="?orden=Modificar&id='.$id.'" title="Modificar">✏️</a> <a href="?orden=Borrar&id='.$id.'" title="Borrar" onclick="return confirm(\'¿Borrar producto?\')">🗑️</a></td></tr>';
     }
     return $msg . "</table>";
 }
