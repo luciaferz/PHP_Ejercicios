@@ -5,11 +5,11 @@ include_once 'app/dat/AccesoDatos.php';
 include_once 'app/funciones.php';
 include_once 'app/acciones.php';
 
-/* 
+
 
 // Div con contenido
 $contenido="";
-if ($_SERVER['REQUEST_METHOD'] == "GET" ){
+/*if ($_SERVER['REQUEST_METHOD'] == "GET" ){
     
     if ( isset($_GET['orden'])){
         switch ($_GET['orden']) {
@@ -32,7 +32,7 @@ else {
          }
     }
 }
-    */
+  */  
 
 $contenido .= mostrarDatos(); //Cambiar funcion mostrar datos
 // Muestro la página principal

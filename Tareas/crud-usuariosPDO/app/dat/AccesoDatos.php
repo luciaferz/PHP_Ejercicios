@@ -3,10 +3,7 @@ include_once "app/dat/Usuario.php";
 include_once "app/config.php";
 
 
-/* En config.php, apuntar a la base de datos ProductosDB.
-En AccesoDatos.php, consultar la tabla Productos y obtener productos, en lugar de usuarios.
-En funciones.php, hacer que mostrarDatos() muestre las columnas de productos: Código, Nombre, Stock, Stock mínimo y Precio.
-*/
+
 
 /*
  * Acceso a datos con BD Usuarios y Patrón Singleton 
@@ -27,14 +24,12 @@ class AccesoDatos {
         return self::$modelo;
     }
     
-    
-
    // Constructor privado  Patron singleton, se accede por getModelo
-   
     private function __construct(){
         
         try {
-            $dsn = "mysql:host=".SERVER_DB.";dbname=".DATABASE.";charset=utf8";
+            $dsn = "mysql:host=".SERVER_DB.";dbname=".DATABASE_USUARIOS.";charset=utf8";//Conectarse a la BD de Usuarios
+            $dsn = "mysql:host=" . SERVER_DB .";dbname=".DATABASE_PRODUCTOS.";charset=utf8";//Conestarse a la BD de Prodcutos
             // Creo el objeto PDO estableciendo la conexión a la BD
             $this->dbh = new PDO($dsn,DB_USER,DB_PASSWD);
             // Si falla genera una excepción
@@ -53,7 +48,6 @@ class AccesoDatos {
             self::$modelo = null; // Borro el objeto.
         }
     }
-
 
     // Devuelvo un array de objeto de Usuarios
     public function getUsuarios ():array {
@@ -92,6 +86,12 @@ class AccesoDatos {
         return $user;
     }
     
+    //Mostrar los productos de BD Productos
+    public function getProductos(): array {
+        $stmt = $this->dbh->prepare("SELECT codigo, nombre, stock, stock_min, precio FROM Productos");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);//Seleccionar todas las filas y devolver array asocitivo de los nombres de las columnas
+}
     // UPDATE
     public function modUsuario($user):bool{
       
@@ -130,13 +130,8 @@ class AccesoDatos {
         trigger_error('La clonación no permitida', E_USER_ERROR); 
     }
 
-    //Para mostrar luego los prodcutos
-   
-    public function getProductos(): array {
-        $stmt = $this->dbh->prepare("SELECT codigo, nombre, stock, stock_min, precio FROM Productos");
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+
+
     
 
 }

@@ -1,9 +1,9 @@
 <?php
 
-// MUESTRA TODOS LOS USUARIOS
+// MUESTRA TODOS LOS PRODUCTOS
 function mostrarDatos (){
     
-    $titulos = [ "Nombre","login","Password","Comentario"];
+    $titulos = [ "Código", "Nombre", "Stock", "Stock mínimo", "Precio" ];
     $msg = "<table>\n";
      // Identificador de la tabla
     $msg .= "<tr>";
@@ -11,20 +11,16 @@ function mostrarDatos (){
         $msg .= "<th>$titulos[$j]</th>";
     }  
     $msg .= "</tr>";
-    $auto = $_SERVER['PHP_SELF'];
     $db = AccesoDatos::getModelo();
-    $tuser = $db->getUsuarios();
-    foreach ($tuser as $user) {
+    $productos = $db->getProductos();
+    foreach ($productos as $producto) {
         $msg .= "<tr>";
-        $msg .= "<td>$user->nombre</td>";
-        $msg .= "<td>$user->login</td>";
-        $msg .= "<td>$user->password</td>";
-        $msg .= "<td>$user->comentario</td>";
-        $msg .="<td><a href=\"#\" onclick=\"confirmarBorrar('$user->nombre','$user->login');\" >🗑️</a></td>\n";
-        $msg .="<td><a href=\"".$auto."?orden=Modificar&id=$user->login\">✏️</a></td>\n";
-        $msg .="<td><a href=\"".$auto."?orden=Detalles&id=$user->login\" >👁️</a></td>\n";
-        $msg .="</tr>\n";
-        
+        $msg .= "<td>{$producto['codigo']}</td>";
+        $msg .= "<td>{$producto['nombre']}</td>";
+        $msg .= "<td>{$producto['stock']}</td>";
+        $msg .= "<td>{$producto['stock_min']}</td>";
+        $msg .= "<td>{$producto['precio']}</td>";
+        $msg .= "</tr>\n";
     }
     $msg .= "</table>";
    
@@ -32,19 +28,18 @@ function mostrarDatos (){
 }
 
 /*
- *  Funciones para limpiar la entreda de posibles inyecciones
+ *  Funciones para limpiar la entrada de posibles inyecciones
  */
 
 function limpiarEntrada(string $entrada):string{
-    $salida = trim($entrada); // Elimina espacios antes y después de los datos
-    $salida = strip_tags($salida); // Elimina marcas
+    $salida = trim($entrada);
+    $salida = strip_tags($salida);
     return $salida;
 }
-// Función para limpiar todos elementos de un array
+
 function limpiarArrayEntrada(array &$entrada){
  
     foreach ($entrada as $key => $value ) {
         $entrada[$key] = limpiarEntrada($value);
     }
 }
-

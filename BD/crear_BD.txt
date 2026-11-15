@@ -6,7 +6,7 @@ Iniciar Ubuntu Server
     Entrar en el navegador en: http://10.10.8.10:8080/
 
 Crear base de datos en phpMyAdmin
-    1.usuario y contrasea de http://localhost/phpmysqladmin/: root y root
+    1.usuario y contrasea de http://localhost/phpmyadmin/index.php: root y root
     2.Crear base de datos: Estructura -> crear tabla: tienda_demo
     3.Pinchar en SQL: y poner la base de datos(SQL)
 
