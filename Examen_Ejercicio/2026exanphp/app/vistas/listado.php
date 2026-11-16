@@ -121,7 +121,7 @@
 <div class="container">
     <header>
         <img src="../logo.png" alt="Global Flights" class="logo-img">
-        <h1>Vuelos disponibles a <span class="city-badge">DESTINOXXX</span></h1>
+        <h1>Vuelos disponibles a <span class="city-badge"><?= htmlspecialchars($destino, ENT_QUOTES, 'UTF-8') ?></span></h1>
     </header>
      
     <table>
@@ -135,30 +135,16 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Tabla a genera en PHP -->
-          <tr>
-                <td><strong>Pacific Fly</strong></td>
-                <td>Turista</td>
-                <td class="price">100.00€</td>
-                <td>Disponible</td>
-                <td><a href="#" class="btn-book">RESERVAR</a></td>
-            </tr>
-
-            <tr>
-                <td><strong>LAN Airways</strong></td>
-                <td>Business</td>
-                <td class="price">920.00€</td>
-                <td><span style="color: red; font-weight: bold;">Últimas plazas</span></td>
-                <td><a href="#" class="btn-book">RESERVAR</a></td>
-            </tr>
-
-            <tr>
-                <td><strong>THAI Air</strong></td>
-                <td>First Class</td>
-                <td class="price">1450.00€</td>
-                <td>Disponible</td>
-                <td><a href="#" class="btn-book">RESERVAR</a></td>
-            </tr> 
+            <!-- Genera una fila de la tabla por cada vuelo devuelto por la consulta. -->
+            <?php foreach ($vuelos as $vuelo): ?>
+                <tr>
+                    <td><strong><?= htmlspecialchars($vuelo->aerolinea) ?></strong></td><!--htmlspecialchars: Convierte caracteres especiales como <, >, &, comillas.-->
+                    <td><?= htmlspecialchars(verClase($vuelo->clase)) ?></td>
+                    <td class="price"><?= number_format($vuelo->precio_billete, 2, ',', '.') ?> €</td>
+                    <td><?= htmlspecialchars(verEstado($vuelo->asientos_libres)) ?></td>
+                    <td><a href="#" class="btn-book">RESERVAR</a></td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 

@@ -103,14 +103,13 @@
     
     <div class="icon-no-results">📍 </div>
     
-    <h1>Sin disponibilidad en <span class="city-name"></B> DESTINO_PHP</B></span></h1>
-     
-    <p> <B> MENSAJE DE ERROR PHP </B></p>
+    <h1>Problema en la búsqueda</h1>
+    <!-- Muestra el mensaje que buscarVuelo.php preparó según el tipo de error. -->
+    <p><?= htmlspecialchars($mensajeError, ENT_QUOTES, 'UTF-8') ?></p>
     <div class="button-group">
         <a href="../index.php" class="btn btn-primary">INTENTAR OTRA DESTINO</a>
     </div>
 
-    
 </div>
 
 </body>

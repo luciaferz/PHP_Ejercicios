@@ -4,8 +4,14 @@
  * @param int $num
  * @return string - Texto asociado al valor del número
  */
-function verClase( int $num):string {
-     return "Turista";//Modificar 1.urista, 2: Business, 3: First Class
+function verClase(int $num):string {
+     $clase = [
+        1 => "Turista",   
+        2 => "Business",
+        3 => "First Class"
+     ];  
+    
+         return $clase[$num] ?? "Clase desconocida"; // ?? devulve una valor alternativo si una variable o índice no existe o es null. 
     };
 
 /**
@@ -14,6 +20,7 @@ function verClase( int $num):string {
  * @param int $plazas
  * @return string
  */
-function verEstado ( int $plazas):string {
-    return "Disponible";
+function verEstado (int $plazas):string {
+
+    return $plazas < 10 ? 'Últimas plazas' : 'Disponibles';
 }

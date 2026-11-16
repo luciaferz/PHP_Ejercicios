@@ -1,5 +1,7 @@
 <?php
-
+// Lee el contador guardado por buscarVuelo.php para decidir si muestra la oferta.
+$consultas = filter_var($_COOKIE['consultas'] ?? '0', FILTER_VALIDATE_INT);
+$mostrarOferta = $consultas !== false && $consultas > 3;
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -79,6 +81,9 @@
     <img src="logo.png" alt="Logo Viajes Exclusivos" class="logo-img">
     
     <h2>¿A QUÉ DESTINO DESEA VIAJAR?</h2>
+    <?php if ($mostrarOferta): ?>
+        <p><strong>Existen ofertas especiales para nuestros socios.</strong></p>
+    <?php endif; ?>
       <!--- MENAJE DE COOKIE ---->
     <form action="app/buscarVuelo.php" method="GET">
         <div class="input-group">
