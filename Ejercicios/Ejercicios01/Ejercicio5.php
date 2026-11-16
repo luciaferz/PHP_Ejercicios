@@ -1,6 +1,22 @@
 <?php
+/**.- Realizar un segunda versión del primer ejercicio donde la página de resultado tiene que mostrar una tabla con el siguiente  
+ * formato utilizando estilo.
+
+1º Número : 5  
+2º Número : 2
+ 
+Operación	Resultado
+5 + 2	7
+5 - 2	3
+5 * 2	10
+5 / 2	  2.4
+5 % 2	1
+52	25
+ */
+
 $num1 = random_int(1, 10);
 $num2 = random_int(1, 10);
+
 ?>
 
 <!DOCTYPE html>
