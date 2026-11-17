@@ -153,3 +153,27 @@
 
 </body>
 </html>
+
+<!----------------Version profesor---------->
+  
+    <table>
+        <thead>
+           <tr>
+                <th>Aerolínea</th>
+                <th>Clase</th>
+                <th>Precio</th>
+                <th>Estado</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach($listaVuelos as $vuelos) :?>
+         <tr>
+                    <td><strong><?=$vuelo->aerolinea?></strong></td>
+                    <td class="price"><?= verClase2($vuelo->precio_billete)?> €</td>
+                    <td><?= $vuelo->asientos_libres?></td>
+                    <td><a href="#" class="btn-book">RESERVAR</a></td>
+                </tr>
+            <?php endforeach ?>
+        </tbody>
+    </table>

@@ -24,3 +24,15 @@ function verEstado (int $plazas):string {
 
     return $plazas < 10 ? 'Últimas plazas' : 'Disponibles';
 }
+
+//----------------Version Profesor------------------
+function verClase2 (int $num): string{
+    $tabla = ["1" => "Turista", "2" => "Business", "3" => "First Class"];
+    
+    if($plazas > 10){
+        return "Dsiponible";
+    }else{
+        return "Ultimas plazas";
+    }
+    return $tabla[$num];
+    }

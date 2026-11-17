@@ -99,3 +99,34 @@ $mostrarOferta = $consultas !== false && $consultas > 3;
 
 </body>
 </html>
+
+    <!---Version Profesor--->c
+    <?php
+    //Actualizar COOKIE
+    function checkOfertas() : string{
+        $msg="";
+        $nConsultas = 0;
+
+        if(isset($_COOKIE['consultas'])){
+            $nConsultas = $_COOKIE['consultas'];
+        }
+
+        if($nConsultas > 3){
+            $msg= "Ofertas especiales para nuestro soscio ";
+        }
+
+        return $msg;
+
+        $nConsultas++;
+        setcookie('consulta', $nConsultas);
+    }
+
+    <p></p><h2><b><?= checkOfertas();?></b> </h2></p>
+
+    <form action="app/buscarVuelo.php" method="GET">
+        <div class="input-group">
+            <label for="destino">DESTINO:</label>
+            <input type="text" id="destino" name="destino" value='' placeholder="Escriba el destino..." required>
+            <label for="destino">PLAZAS:</label>
+             <input type="text" id="plazas" name="plazas" value='' placeholder="Número de plazas .." required>
+        </div>

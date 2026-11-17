@@ -37,6 +37,7 @@ class AccesoDatos {
         trigger_error('La clonación no permitida', E_USER_ERROR); 
     }
 
+
     public function getVuelos(string $destino, int $plazas): array
     {
         // Busca vuelos al destino indicado que tengan plazas suficientes.
@@ -81,5 +82,34 @@ class AccesoDatos {
         return $stmt->fetchColumn() !== false;
     }
   
+//--------Version profesor----------------
+    public function hayVUelos($destino): bool{
+        $resu = false;
+
+        $stmt = $this->dbh->prepare("SELECT * FROM Vuelos WHERE destino = :destino limit 1");
+        $stmt->bindValue(":destino", $destino);
+        $stmt->setFetchMOde(PDO::FETCH_CLASS);
+
+        if($stmt->execute()){
+            if($stmt->fetch()){
+                $resu = true;
+            }
+        }
+        return $resu;
+    }
 }
 
+public function getVuelos2 (string $destino, int $plazas): array {
+    $tresu = [];
+
+     $stmt = $this->dbh->prepare("SELECT * FROM Vuelos WHERE destino = :destino AND asientos_libres >= plaza");
+        $stmt->bindValue(":destino", $destino);
+        $stmt->bindValue(":asientos_libres", $plaza);
+        $stmt->setFetchMOde(PDO::FETCH_CLASS);
+
+        if($stmt->execute()){
+            $tresu = stmt->fetchAll();
+        }
+        
+    return $tresu;
+}

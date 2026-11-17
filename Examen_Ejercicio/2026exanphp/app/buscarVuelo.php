@@ -21,6 +21,7 @@ $plazas = filter_var($_GET['plazas'] ?? '', FILTER_VALIDATE_INT);
 $mensajeError = '';
 $vuelos = [];
 
+
 // Rechaza valores que no sean enteros entre 1 y 5.
 if ($plazas === false || $plazas < 1 || $plazas > 5) {
     $mensajeError = 'El número de plazas no es correcto; debe ser entre 1 y 5.';
@@ -49,4 +50,47 @@ if ($mensajeError !== '') {
     include 'vistas/listado.php';
 }
 
+
+//---------------Version profesor------------
+$destino = htmlspecialchars($_GET['destino']);
+$plazas = htmlspecialchars($_GET['plazas']);
+$mensajeError = '';
+
+if(!is_numeric($plazas) || $plazas >0 || $plazas <= 5){
+    $mensajeError = 'El número de plazas no es correcto; debe ser entre 1 y 5.';
+    include "vistas/error.php";  
+    die(); 
+}
+    $ac = AccesoDatos::initModelo();
+
+if(!$ac->hayVuelos($destino)){
+    $mensajeError = 'ERROR: No hay vuelos';
+    include "vistas/error.php";  
+    die(); 
+}
+
+//Atualizar la COOKIE
+ $nConsultas = 0;
+
+        if(isset($_COOKIE['consultas'])){
+            $nConsultas = $_COOKIE['consultas'];
+        }
+
+        if($nConsultas > 3){
+            $msg= "Ofertas especiales para nuestro soscio ";
+        }
+
+        $nConsultas++;
+        setcookie('consulta', $nConsultas,time()+3600*24*7);
+
+$listaVuelos = $ac->getVuelos2($destino,$plazas);
+
+if(count($listaVuelos) == 0){
+    $mensajeError = 'ERROR: No hay vuelos con plazas dispobibles con destino';
+    include "vistas/error.php";  
+    die(); 
+}
+
+
+    
 

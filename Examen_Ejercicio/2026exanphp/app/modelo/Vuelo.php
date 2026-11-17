@@ -21,7 +21,7 @@ class Vuelo{
         if(property_exists($this,$name)){
             return $this->$name;
         }else{
-            return "Atributo error";
+            return "Atributo ERROR";
         }
     }
 

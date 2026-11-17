@@ -105,7 +105,7 @@
     
     <h1>Problema en la búsqueda</h1>
     <!-- Muestra el mensaje que buscarVuelo.php preparó según el tipo de error. -->
-    <p><?= htmlspecialchars($mensajeError, ENT_QUOTES, 'UTF-8') ?></p>
+    <p><?= htmlspecialchars($mensajeError) ?></p>
     <div class="button-group">
         <a href="../index.php" class="btn btn-primary">INTENTAR OTRA DESTINO</a>
     </div>
