@@ -83,7 +83,7 @@ class AccesoDatos {
     }
   
 //--------Version profesor----------------
-    public function hayVUelos($destino): bool{
+    public function hayVuelos($destino): bool{
         $resu = false;
 
         $stmt = $this->dbh->prepare("SELECT * FROM Vuelos WHERE destino = :destino limit 1");

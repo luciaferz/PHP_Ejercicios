@@ -77,7 +77,7 @@ if(!$ac->hayVuelos($destino)){
         }
 
         if($nConsultas > 3){
-            $msg= "Ofertas especiales para nuestro soscio ";
+            $msg= "Ofertas especiales para nuestro socios";
         }
 
         $nConsultas++;
