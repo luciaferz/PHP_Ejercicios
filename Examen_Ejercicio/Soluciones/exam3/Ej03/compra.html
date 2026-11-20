@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Compra</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .formulario-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            margin-top: 20px;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="formulario-container">
+    <h2>INTRODUZCA LOS DATOS DE SU COMPRA</h2>
+
+    <form action="realizarcompra.php" method="POST">
+        <label for="codigo_socio">Código de socio:</label>
+        <input type="text" id="codigo_socio" name="codigo_socio"><br><br>
+
+        <label for="clave">Clave:</label>
+        <input type="password" id="clave" name="clave"><br><br>
+
+        <label for="codigo_producto">Código de producto:</label>
+        <input type="text" id="codigo_producto" name="codigo_producto"><br><br>
+
+        <input type="submit" value="ENVIAR">
+    </form>
+    </div>
+</body>
+</html>
+			
+		
+      
