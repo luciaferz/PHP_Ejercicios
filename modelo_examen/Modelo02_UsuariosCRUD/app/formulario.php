@@ -1,0 +1,2 @@
+<!-- Los nombres con [] son importantes: PHP recibe un array de checkboxes. -->
+<form method="post"><input type="hidden" name="accion" value="acciones"><!-- La solución genera los checks dinámicamente. --></form>

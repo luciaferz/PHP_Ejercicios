@@ -1,0 +1,1 @@
+<form method="post"><input name="nombre" required><input name="curso" required><button>Entrar</button></form>
