@@ -13,6 +13,7 @@
 <div id="content">
 <hr>
 <?= $msg ?><br>
+<!-- NUEVO (requisito del examen): formulario que solicita el PIN de acceso. -->
 <form method="GET">
 INTRODUZCA EL PIN DE ACCESO 
 <input name="pin" type="password" size="5">

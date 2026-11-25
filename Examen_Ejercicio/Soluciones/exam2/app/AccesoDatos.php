@@ -16,9 +16,11 @@ class AccesoDatos
     private $stmt_boruser  = null;
     private $stmt_moduser  = null;
     private $stmt_creauser = null;
+    // NUEVO (requisito del examen): consultas preparadas para actualizar saldo y bloqueo.
     private $stmt_updateBloqueo = null;
     private $stmt_updateSaldo =null; 
 
+    // Devuelve el objeto único de acceso a datos; lo crea una vez y luego lo reutiliza.
     public static function getModelo()
     {
         if (self::$modelo == null) {
@@ -48,11 +50,14 @@ class AccesoDatos
         $this->stmt_boruser   = $this->dbh->prepare("delete from Usuarios where login =:login");
         $this->stmt_moduser   = $this->dbh->prepare("update Usuarios set nombre=:nombre, password=:password, comentario=:comentario where login=:login");
         $this->stmt_creauser  = $this->dbh->prepare("insert into Usuarios (login,nombre,password,comentario) Values(?,?,?,?)");
+        // NUEVO (requisito del examen): prepara las consultas para actualizar bloqueo y saldo.
         $this->stmt_updateBloqueo    = $this->dbh->prepare("update Usuarios set bloqueo=:bloqueo where login=:login ");
+        // Multiplicar por 1.10 conserva el saldo actual y añade un 10 %.
         $this->stmt_updateSaldo      = $this->dbh->prepare("update Usuarios set saldo=saldo*1.10 where login=:login ");
     }
 
     // Cierro la conexión anulando todos los objectos relacioanado con la conexión PDO (stmt)
+    // Libera la conexión y borra la instancia única al terminar la aplicación.
     public static function closeModelo()
     {
         if (self::$modelo != null) {
@@ -123,6 +128,7 @@ class AccesoDatos
         return $resu;
     }
 
+    // NUEVO (requisito del examen): incrementa un 10 % el saldo de cada login seleccionado.
     public function actualizarSaldos(array $tuser)
     {
         foreach ($tuser as $user) {
@@ -134,6 +140,7 @@ class AccesoDatos
     
 
 
+    // NUEVO (requisito del examen): bloquea los marcados y desbloquea los no marcados.
     public function actualizarBloqueos(array $bloqueoUsuario)
     {
         $tuser = $this->getUsuarios();

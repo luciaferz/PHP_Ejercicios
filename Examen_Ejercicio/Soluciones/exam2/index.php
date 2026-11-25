@@ -8,6 +8,7 @@ $contenido = "";
 $msg = "";
 
 
+// NUEVO (requisito del examen): pide el PIN mientras no exista acceso en la sesión.
 if (!isset($_SESSION["accesoconcedido"])) {
     if (!isset($_GET["pin"])) {
         include "app/layout/formulariopin.php";
@@ -23,6 +24,7 @@ if (!isset($_SESSION["accesoconcedido"])) {
     }
 } 
 
+// NUEVO (requisito del examen): cierra el acceso cuando pasan cinco minutos.
 if ( time() - $_SESSION["timeout"] > 300 ) {
     accionTerminar();
     exit();
@@ -45,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                 case "Detalles":
                     accionDetalles($_GET['id']);
                     break;
+                // NUEVO (requisito del examen): procesa las órdenes de saldo y bloqueo con los logins marcados.
                 case "MasSaldo":
                     if (isset ($_GET['tuser'])){
                         accionMasSaldo($_GET['tuser']);

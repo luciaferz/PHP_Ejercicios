@@ -12,10 +12,14 @@
 <h1>GESTIÓN DE USUARIOS versión 1.1 + BD</h1>
 </div>
 <div id="content">
-<?= $contenido ?>
-<form>
-<button name="orden" value="Nuevo"> Nuevo </button>
-<button name="orden" value="Terminar"> Terminar </button>
+<!-- NUEVO (requisito del examen): un formulario GET envía juntos la tabla, los checkboxes y la orden elegida. -->
+<form method="get" action="index.php">
+    <?= $contenido ?>
+    <button name="orden" value="Nuevo">Nuevo</button>
+    <button name="orden" value="Terminar">Terminar</button>
+    <!-- NUEVO (requisito del examen): cada botón envía una orden distinta para los usuarios marcados. -->
+    <button name="orden" value="IncrementarSaldo">Incrementar saldo</button>
+    <button name="orden" value="ActualizarBloqueos">Actualizar bloqueos</button>
 </form>
 </div>
 </div>

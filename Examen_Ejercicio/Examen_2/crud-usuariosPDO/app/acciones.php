@@ -6,12 +6,34 @@ function accionBorrar ($login){
     $tuser = $db->borrarUsuario($login);
 }
 
-function accionTerminar(){
-    AccesoDatos::closeModelo();
-    session_destroy();
-    header("Refresh:0 url='./index.php'");
+// NUEVO (requisito del examen): pide al modelo que incremente los saldos seleccionados.
+function accionIncrementarSaldo(array $logins)
+{
+    // getModelo devuelve el único AccesoDatos y reutiliza su conexión a la base de datos.
+    $db = AccesoDatos::getModelo();
+    $db->actualizarSaldos($logins);
 }
- 
+
+// NUEVO (requisito del examen): pide al modelo que actualice los bloqueos según los checkboxes.
+function accionActualizarBloqueos(array $logins)
+{
+    // getModelo devuelve el mismo objeto AccesoDatos para ejecutar la actualización.
+    $db = AccesoDatos::getModelo();
+    $db->actualizarBloqueos($logins);
+}
+
+function accionTerminar(){
+    // closeModelo libera la conexión y elimina el objeto único antes de cerrar la sesión.
+    AccesoDatos::closeModelo();
+    // NUEVO (requisito del examen): elimina la sesión al pulsar Terminar.
+    $_SESSION = [];
+    session_destroy();
+    // Redirige a index.php; al no haber sesión, volverá a solicitar el PIN.
+    header('Location: index.php');
+    exit;
+}
+
+
 function accionAlta(){
     $user = new Usuario();
     $user->nombre  = "";

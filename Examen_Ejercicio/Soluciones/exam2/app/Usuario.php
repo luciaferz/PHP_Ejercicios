@@ -7,6 +7,7 @@ class Usuario
     private $login;
     private $password;
     private $comentario;
+    // NUEVO (requisito del examen): campos añadidos a la entidad de la base de datos.
     private $bloqueo;
     private $saldo;
     

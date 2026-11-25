@@ -7,6 +7,7 @@ include_once 'app/AccesoDatos.php';
 // MUESTRA TODOS LOS USUARIOS
 function mostrarDatos (){
     
+    // NUEVO (requisito del examen): se muestran los campos saldo y bloqueo y una columna de selección.
     $titulos = [ " ", "Nombre","login","Password","bloqueo","Saldo","Comentario"];
     $msg = "<table>\n";
      // Identificador de la tabla
@@ -20,6 +21,7 @@ function mostrarDatos (){
     $tuser = $db->getUsuarios();
     foreach ($tuser as $user) {
         $msg .= "<tr>";
+        // NUEVO (requisito del examen): cada checkbox envía el login del usuario marcado.
         $msg .= "<td><input type='checkbox' name='tuser[]' value='$user->login'";
         $msg .=  " ></td>";
         $msg .= "<td>$user->nombre</td>";

@@ -99,8 +99,7 @@ $mostrarOferta = $consultas !== false && $consultas > 3;
 
 </body>
 </html>
-
-    <!---Version Profesor--->c
+    <!---Version Profesor--->
     <?php
     //Actualizar COOKIE
     function checkOfertas() : string{

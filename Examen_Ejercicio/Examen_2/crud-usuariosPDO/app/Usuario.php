@@ -7,6 +7,9 @@ class Usuario
     private $login;
     private $password;
     private $comentario;
+    // NUEVO (requisito del examen): datos añadidos a la entidad de la base de datos.
+    private $saldo;
+    private $bloqueo;
     
     // Getter con método mágico
     public function __get($atributo){
