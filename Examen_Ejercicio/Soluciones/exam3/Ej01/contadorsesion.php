@@ -1,11 +1,14 @@
 
 <?php
+/* La sesión conserva el contador entre peticiones del navegador. */
 session_start();
+// Primera visita: creamos la clave antes de incrementarla.
 if ( !isset($_SESSION['contador'])){
     $_SESSION['contador']=0;
 }
 
 $anular = false;
+// Cada botón GET envía una orden diferente.
 if (isset($_GET['orden'])){
     switch ($_GET['orden']){
         case "Incrementar":  
@@ -13,6 +16,7 @@ if (isset($_GET['orden'])){
         case "Decrementar":   
             $_SESSION['contador']--; break;
         case "Anular": 
+            // Elimina los datos guardados en la sesión.
             session_destroy();
             $anular = true;
             break;

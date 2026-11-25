@@ -1,4 +1,5 @@
 <?php
+/* Aquí se concentra la conexión y todas las consultas SQL del CRUD. */
 include_once "Usuario.php";
 include_once "config.php";
 
@@ -9,6 +10,7 @@ include_once "config.php";
 class AccesoDatos
 {
 
+    // static pertenece a la clase completa y permite aplicar Singleton.
     private static $modelo = null;
     private $dbh = null;
     private $stmt_usuarios = null;
@@ -21,6 +23,7 @@ class AccesoDatos
     private $stmt_updateSaldo =null; 
 
     // Devuelve el objeto único de acceso a datos; lo crea una vez y luego lo reutiliza.
+    // self:: accede a elementos estáticos de esta clase; $this sería un objeto.
     public static function getModelo()
     {
         if (self::$modelo == null) {
@@ -45,6 +48,7 @@ class AccesoDatos
             exit();
         }
         // Construyo las consultas
+        // prepare prepara SQL; los parámetros se rellenan después con bindValue.
         $this->stmt_usuarios  = $this->dbh->prepare("select * from Usuarios");
         $this->stmt_usuario   = $this->dbh->prepare("select * from Usuarios where login=:login");
         $this->stmt_boruser   = $this->dbh->prepare("delete from Usuarios where login =:login");
@@ -69,6 +73,7 @@ class AccesoDatos
 
 
     // Devuelvo la lista de Usuarios
+    // FETCH_CLASS transforma cada fila en un objeto Usuario.
     public function getUsuarios(): array
     {
         $tuser = [];
@@ -83,6 +88,7 @@ class AccesoDatos
     }
 
     // Devuelvo un usuario o false
+    // Devuelve un Usuario o false si no existe el login.
     public function getUsuario(String $login)
     {
         $user = false;
@@ -98,6 +104,7 @@ class AccesoDatos
     }
 
     // UPDATE
+    // UPDATE modifica una fila identificada por su login.
     public function modUsuario($user): bool
     {
 
@@ -111,6 +118,7 @@ class AccesoDatos
     }
 
     //INSERT
+    // INSERT crea una fila; rowCount comprueba si se insertó.
     public function addUsuario($user): bool
     {
 
@@ -120,6 +128,7 @@ class AccesoDatos
     }
 
     //DELETE
+    // DELETE borra la fila cuyo login coincide.
     public function borrarUsuario(String $login): bool
     {
         $this->stmt_boruser->bindParam(':login', $login);
@@ -129,6 +138,7 @@ class AccesoDatos
     }
 
     // NUEVO (requisito del examen): incrementa un 10 % el saldo de cada login seleccionado.
+    // tuser es un array porque procede de varios checkboxes tuser[].
     public function actualizarSaldos(array $tuser)
     {
         foreach ($tuser as $user) {
@@ -141,6 +151,7 @@ class AccesoDatos
 
 
     // NUEVO (requisito del examen): bloquea los marcados y desbloquea los no marcados.
+    // Ajusta el bloqueo de todos según los logins seleccionados.
     public function actualizarBloqueos(array $bloqueoUsuario)
     {
         $tuser = $this->getUsuarios();

@@ -1,4 +1,5 @@
 <?php
+/* Practica arrays asociativos, funciones, foreach, uasort y formularios GET. */
 // Forma antigua de definir Array en PHP
 $paises = array(
     'Argentina' => 	array("Capital" => "Buenos Aires", 	"Poblacion" => "40000000"),
@@ -23,6 +24,7 @@ $ciudades = [
 ];
 
 function procesarPais($pais){
+     // global permite leer los arrays definidos fuera de la función.
      global $paises,$ciudades;
     if ( !array_key_exists($pais,$paises) ){
         echo " Error no se encuentra el pais <br>";
@@ -42,11 +44,13 @@ function procesarPais($pais){
  * Función auxiliar de ordenación
  */
 function forden ( $a, $b){
+   // uasort usa esta función para comparar dos países por población.
    return  $a['Poblacion'] - $b ['Poblacion'];
 }
 
 
 function mostrarTablaPaisesOrdendada(){
+    // Ordena sin perder las claves asociativas de los países.
     global $paises;
     $orden="forden";
     // Orden segun la función indicada manteniendo las claves
@@ -76,6 +80,7 @@ table, th, td {
 <h1> Información sobre un país </h1>
 
 <?php
+// Si existe pais en GET procesamos; si no, mostramos el formulario.
 if (isset($_GET['pais'])){
     procesarPais($_GET['pais']);
     mostrarTablaPaisesOrdendada();

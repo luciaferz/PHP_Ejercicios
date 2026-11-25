@@ -1,10 +1,17 @@
 <?php
+/*
+ * PUNTO DE ENTRADA DEL EXAMEN 1.
+ * session_start() prepara la sesión; aquí se muestra el formulario.
+ * El formulario envía destino y plazas por GET a app/buscarVuelo.php.
+ */
 session_start();
 
 
 
 function checkOfertas(): string
 {
+    // Leemos la cookie sin modificarla. El controlador la incrementa después
+    // de una búsqueda válida y en la siguiente visita podemos mostrar ofertas.
     $msg = "";
     $nconsultas = 0;
     if (isset($_COOKIE['consultas'])) {
@@ -121,6 +128,7 @@ function checkOfertas(): string
         <h2>¿A QUÉ DESTINO DESEA VIAJAR?</h2>
         <!--- MENAJE DE COOKIE ---->
          <p></p><h2><b><?= checkOfertas();?></b> </h2></p>
+        <!-- GET hace que destino y plazas viajen en la URL y $_GET pueda leerlos. -->
         <form action="app/buscarVuelo.php" method="GET">
             <div class="input-group">
                 <label for="destino">DESTINO:</label>

@@ -1,11 +1,12 @@
 <?php
+// Entidad Socio: sus propiedades privadas corresponden a columnas SQL.
 class Socio
 {
     private $cod_socio;
     private $nombre;
     private $clave;
     private $cantidad_max;
-    // Métodos mágicos para setter y getter
+    // __set permite hidratar el objeto y __get permite leerlo desde la vista.
     
     public function __set($nombre,$valor){
         $class = get_class($this);

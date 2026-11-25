@@ -1,4 +1,5 @@
 <?php
+/* PUNTO DE ENTRADA DEL CRUD: decide si muestra PIN, procesa órdenes o carga vistas. */
 session_start();
 
 include_once 'app/funciones.php';
@@ -9,6 +10,7 @@ $msg = "";
 
 
 // NUEVO (requisito del examen): pide el PIN mientras no exista acceso en la sesión.
+// La sesión evita pedir el PIN en cada petición mientras el acceso siga válido.
 if (!isset($_SESSION["accesoconcedido"])) {
     if (!isset($_GET["pin"])) {
         include "app/layout/formulariopin.php";
@@ -25,12 +27,14 @@ if (!isset($_SESSION["accesoconcedido"])) {
 } 
 
 // NUEVO (requisito del examen): cierra el acceso cuando pasan cinco minutos.
+// 300 segundos equivalen a 5 minutos; después se cierra la sesión.
 if ( time() - $_SESSION["timeout"] > 300 ) {
     accionTerminar();
     exit();
 }
 
 
+// GET navega por las acciones; POST procesa los datos de los formularios.
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
         if (isset($_GET['orden'])) {

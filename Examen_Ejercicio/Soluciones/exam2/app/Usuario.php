@@ -1,4 +1,5 @@
 <?php
+// Entidad del CRUD: cada atributo privado representa una columna de Usuarios.
 
 
 class Usuario
@@ -11,13 +12,13 @@ class Usuario
     private $bloqueo;
     private $saldo;
     
-    // Getter con método mágico
+    // __get se ejecuta automáticamente al leer $user->nombre desde una vista.
     public function __get($atributo){
         if(property_exists($this, $atributo)) {
             return $this->$atributo;
         }
     }
-    // Setter con método mágico
+    // __set se ejecuta al asignar $user->nombre = 'Ana'.
     public function __set($atributo,$valor){
         if(property_exists($this, $atributo)) {
             $this->$atributo = $valor;

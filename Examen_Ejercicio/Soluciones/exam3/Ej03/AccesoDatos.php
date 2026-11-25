@@ -1,4 +1,5 @@
 <?php
+/* Clase de acceso a datos: separa PDO y SQL del controlador de compra. */
 include_once "Socio.php";
 include_once 'Producto.php';
 
@@ -11,6 +12,7 @@ class AccesoDatos {
     private $dbh = null;
     private $stmt = null;
     
+    // Singleton: todas las operaciones reutilizan la misma conexión.
     public static function initModelo(){
         if (self::$modelo == null){
             self::$modelo = new AccesoDatos();
@@ -20,6 +22,7 @@ class AccesoDatos {
     
     // Creo un lista de alimentos, podría obtenerse de una base de datos
     private function __construct(){
+        // Constructor privado: la conexión se obtiene con initModelo().
         
         try {
             $dsn = "mysql:host=localhost;dbname=comprasdb;charset=utf8";
@@ -35,9 +38,11 @@ class AccesoDatos {
     }
     
     
+    // SELECT con dos parámetros: código y clave deben coincidir.
     public function buscarSocio ($cod_socio, $clave) {
         $socio = null;
         $stmt = $this->dbh->prepare("select * from socios where cod_socio = ? and clave = ?");
+        // Los ? se rellenan por posición; la primera posición es 1.
         $stmt->bindValue(1, $cod_socio);
         $stmt->bindValue(2, $clave);
         // Devuelvo una tabla de objetos
@@ -50,6 +55,7 @@ class AccesoDatos {
        return $socio;
     }
     
+    // Aquí se usa un parámetro con nombre, equivalente a usar ?.
     public function  buscarProducto($cod_producto) {
         $producto = null;
         $stmt = $this->dbh->prepare("select * from productos where cod_pro = :cod_pro ");
@@ -64,6 +70,7 @@ class AccesoDatos {
         return $producto;
     }
     
+    // UPDATE descuenta el importe después de comprobar el límite.
     public function actualizarSocio($cod_socio,$importe):void {
         $stmt = $this->dbh->prepare("update socios set cantidad_max = cantidad_max - ?  where cod_socio = ? ");
         $stmt->bindValue(1, $importe);
