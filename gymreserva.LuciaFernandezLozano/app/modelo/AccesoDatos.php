@@ -22,8 +22,8 @@ class AccesoDatos
     {
 
         try {
-            $dsn = "mysql:host=10.10.8.10;dbname=gestionfitness;charset=utf8";
-            $this->dbh = new PDO($dsn, "root", "root");
+            $dsn = "mysql:host=localhost;dbname=gestionfitness;charset=utf8";
+            $this->dbh = new PDO($dsn, "root", "");
             $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             echo "Error de conexión " . $e->getMessage();
@@ -33,58 +33,54 @@ class AccesoDatos
     // Construyo la consulta
 
     // Busca al socio por sus credenciales y devuelve un Socio o null.
-    public function obtenerSocio(string $codigo)
+    public function obtenerSocio(int $codigo): ?Socio
     {
         $resu = null;
 
-        $stmt = $this->dbh->prepare(
-            'SELECT *
-             FROM Socio
-             WHERE $codigo_socio = :$codigo'
-        );
+        $stmt = $this->dbh->prepare('SELECT * FROM Socio WHERE codigo_socio = :codigo');
 
         $stmt->bindValue(':codigo', $codigo);
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Socio');
 
         if ($stmt->execute()) {
-            $cliente = $stmt->fetch();
-            if ($codigo !== false) {
-                $resu = $codigo;
-            }
+            $socio = $stmt->fetch();
+            if ($socio !== false) $resu = $socio;
         }
 
         return $resu;
     }
 
     // Devuelve un array de objetos Clase con plazas suficientes.
-    public function obtenerClase(string $actividad, int $codigo_clase): array
+    public function obtenerClase(string $actividad, int $plazas): ?Clase
     {
-        $resu = [];
-        $stmt = $this->dbh->prepare("select * from Clase where codigo_clase >= :codigo_clase");
-        $stmt->bindValue(":codigo_clase", $codigo_clase);
+        $resu = null;
+        $stmt = $this->dbh->prepare('SELECT * FROM Clase WHERE actividad = :actividad AND plazas_libres >= :plazas ORDER BY codigo_clase LIMIT 1');
+        $stmt->bindValue(':actividad', $actividad);
+        $stmt->bindValue(':plazas', $plazas, PDO::PARAM_INT);
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Clase');
         if ($stmt->execute()) {
-            $resu = $stmt->fetchAll();
+            $clase = $stmt->fetch();
+            if ($clase !== false) $resu = $clase;
         }
         return $resu;
     }
 
-    public function actualizarPlazas($codigo, $plazas)
+    public function actualizarPlazas(int $codigo, int $plazas): bool
     {
-        $stmt = $this->dbh->prepare("UPDATE Clase SET plazas_libres = plazas_libres - :plazas WHERE codigo_clase := codigo_clase AND plazas_libres >= plazas_libres");
+        $stmt = $this->dbh->prepare('UPDATE Clase SET plazas_libres = plazas_libres - :plazas WHERE codigo_clase = :codigo AND plazas_libres >= :plazas');
 
 
-        $stmt->execute([':codigo_socio' => $codigo,':plazas_libres' => $plazas]);
+        $stmt->execute([':codigo' => $codigo, ':plazas' => $plazas]);
 
         return $stmt->rowCount() > 0;;
     }
 
-    public function incrementarAsistencia($codigo)
+    public function incrementarAsistencia(int $codigo): bool
     {
-        $stmt = $this->dbh->prepare("UPDATE Socio SET contador_asistencias = contador_asistencias + 1 WHERE  codigo_socio =: codigo_socio");
+        $stmt = $this->dbh->prepare('UPDATE Socio SET contador_asistencias = contador_asistencias + 1 WHERE codigo_socio = :codigo');
 
-        $stmt->execute([':codigo_socio' => $codigo]);
+        $stmt->execute([':codigo' => $codigo]);
 
-        return $ $stmt->rowCount() > 0;
+        return $stmt->rowCount() > 0;
     }
 }

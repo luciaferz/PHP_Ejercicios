@@ -12,8 +12,9 @@
         <h2>ACTIVIDAD RESERVADA </h2>
     
     <!-- COMPLETAR  DATOS DE LA RESERVA -->
-    Muchas gracias <p><?= htmlspecialchars($socio->nombre) ?></p><BR>
-    Se ha reservador su clase <p><?= htmlspecialchars($clase->actividad) ?></p> <br>
-    En la sala<p><?= htmlspecialchars($clase->instalacion) ?></p> <br><br>
+    Muchas gracias <strong><?= htmlspecialchars($socio->nombre) ?></strong><br>
+    Se ha reservado tu clase <strong><?= htmlspecialchars($clase->actividad) ?></strong><br>
+    En la sala <strong><?= htmlspecialchars($clase->instalacion) ?></strong><br>
+    Plazas reservadas: <strong><?= (int)$plazas ?></strong>
 </body>
 </html>

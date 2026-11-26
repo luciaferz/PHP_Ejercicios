@@ -12,10 +12,8 @@
     <div class="container">
         <img src="../logo.png" class="logo-img">
         <h2>ERROR AL RESERVA TU CLASE</h2>
-        <?php echo $mensaje; ?>
-        <!-- COMPLETAR INDICAR MENSAJE DE ERROR -->
         <p><?= htmlspecialchars($mensaje) ?></p> <!--Mensaje de error de proreservas-->
-        <a href="/gymreserva.LuciaFernandezLozano/index.html">
+        <a href="../index.html">
             <button value="Volver">Volver</button>
         </a>
 
