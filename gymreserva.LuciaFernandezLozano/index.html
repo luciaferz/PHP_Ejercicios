@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva tu Clase Dirigida - Gimnasio</title>
+    <link rel="stylesheet" href="estilos.css">
+    
+</head>
+<body>
+
+    <div class="container">
+        <img src="logo.png"  class="logo-img">
+        <h2>RESERVA TU CLASE</h2>
+        <p class="subtitle">Introduce tus datos para consultar las sesiones disponibles</p>
+        
+        <form action="app/proreserva.php" method="POST">
+            <div class="form-group">
+                <label for="codigo_socio">CÓDIGO DE SOCIO</label>
+                <input type="number" id="codigo_socio" name="codigo_socio" placeholder="Ej: 2044"  >
+            </div>
+
+            <div class="form-group">
+                <label for="actividad">ACTIVIDAD DESEADA</label>
+                <select id="actividad" name="actividad" required>
+                    <option value="" disabled selected>Selecciona una actividad...</option>
+                    <option value="Spinning">Spinning</option>
+                    <option value="Yoga">Yoga</option>
+                    <option value="Crossfit">Crossfit</option>
+                    <option value="Pilates">Pilates</option>
+                    <option value="Aerobic">Aerobic</option>
+                    <option value="Zumba">Zumba</option>
+                    <option value="Chi Kung">Chi Kung</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="plazas">N.º DE PLAZAS A RESERVAR</label>
+                <input type="number" id="plazas" name="plazas" placeholder="Ej: 1" required min="1">
+            </div>
+
+            <button type="submit">BUSCAR CLASES</button>
+        </form>
+    </div>
+
+</body>
+</html>
